@@ -20,12 +20,13 @@ class HomePage(TemplateView):
             ht = form.cleaned_data['height_cm']
             wt = form.cleaned_data['weight_kg']
             amp = form.cleaned_data['amp_0_to_10']
+            purpose = form.cleaned_data['purpose']
             result = 0
             if 'female' in request.POST:
-                a = (10*wt + 6.25*ht - 5*age - 161)*((amp/10)+1)
+                a = (10*wt + 6.25*ht - 5*age - 161)*((amp/10)+1) + [-0.1,0,0,1][purpose-1]
                 result = str(a)
             elif 'male' in request.POST:
-                a = (10*wt + 6.25*ht - 5*age + 5)*((amp/10)+1)
+                a = (10*wt + 6.25*ht - 5*age + 5)*((amp/10)+1) + [-0.1,0,0,1][purpose-1]
                 result = str(a)
             if age<=1:
                 result += '''Минералы:
